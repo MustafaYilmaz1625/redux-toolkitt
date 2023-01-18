@@ -1,5 +1,5 @@
 import {useState} from "react" 
-import {add} from "./features/todoSlice"
+import {add, remove} from "./features/todoSlice"
 import { useAppDispatch, useAppSelector } from "./store"
 
 function App() {
@@ -13,12 +13,19 @@ function App() {
     setTitle("")
   }
 
+  const onDelete=(id:string) => {
+    dispatch(remove(id))
+  }
+
   return (
     <div className="App">
     <input name="title" value={title} onChange={(e) => setTitle(e.currentTarget.value)} />
     <button onClick={onSave}>Save</button>
     <ul>
-      {todos.map(todo => <li key={todo.id}>{todo.title}</li>)}
+      {todos.map(todo => <li key={todo.id}>
+        <button onClick={() => onDelete(todo.id)}>Delete</button>
+        <span>{todo.title}</span>
+        </li>)}
     </ul>
     </div>
   );
