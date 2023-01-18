@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {v4} from "uuid";
 
 export interface Todo {
   id: string;
@@ -13,8 +14,15 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<string>) => {
-      const newTodo = { id: "", title: action.payload, completed: false };
+      const newTodo = {
+        id: v4(),
+        title: action.payload,
+        completed: false,
+      };
       state.push(newTodo);
     },
   },
 });
+
+export default todoSlice.reducer;
+export const { add } = todoSlice.actions;
